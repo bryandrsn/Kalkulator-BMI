@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kalkulator BMI</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>-- Kalkulator BMI --</h1>
+      <label for="weight">Berat Badan (kg) :</label>
+      <input type="number" id="weight" placeholder="Masukkan berat badan" />
+      <label for="height">Tinggi Badan (cm) :</label>
+      <input type="number" id="height" placeholder="Masukkan tinggi badan" />
+      <label for="gender">Jenis Kelamin :</label>
+      <select id="gender">
+        <option value="male">Laki-laki</option>
+        <option value="female">Perempuan</option>
+      </select>
+      <button onclick="hitungBMI()">Hitung BMI</button>
+      <div id="result"></div>
+      <div class="description">
+        <p>
+          Kalkulator BMI (Body Mass Index) digunakan untuk menghitung rasio
+          antara berat badan dan tinggi badan Anda.
+        </p>
+        <p>
+          Hasil BMI dapat memberikan indikasi apakah berat badan Anda termasuk
+          kategori kurus, normal, gemuk, atau obesitas.
+        </p>
+      </div>
+    </div>
+  </body>
+
+  <script>
+    function hitungBMI() {
+      const weight = parseFloat(document.getElementById("weight").value);
+      const height = parseFloat(document.getElementById("height").value) / 100; // Konversi cm ke meter
+      const gender = document.getElementById("gender").value;
+
+      if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+        alert("Masukkan berat dan tinggi badan yang valid!");
+        return;
+      }
+
+      const bmi = weight / (height * height);
+      let category = "";
+
+      if (gender === "male") {
+        if (bmi < 18.5) {
+            category = "Kurus";
+            document.getElementById("result").style.color = "#f5d63d";
+        }
+        else if (bmi < 24.9) {
+            category = "Normal";
+            document.getElementById("result").style.color = "#45a049";
+        }
+        else if (bmi < 29.9) {
+            category = "Gemuk";
+            document.getElementById("result").style.color = "#f2a955";
+        }
+        else {
+            category = "Obesitas";
+            document.getElementById("result").style.color = "#FF6347";
+        }
+      } else if (gender === "female") {
+        if (bmi < 18) {
+            category = "Kurus";
+            document.getElementById("result").style.color = "#f5d63d";
+        }
+        else if (bmi < 23.9) {
+            category = "Normal";
+            document.getElementById("result").style.color = "#45a049";
+        }
+        else if (bmi < 28.9) {
+            category = "Gemuk";
+            document.getElementById("result").style.color = "#f2a955";
+        }
+        else {
+            category = "Obesitas";
+            document.getElementById("result").style.color = "#FF6347";
+        }
+      }
+
+      document.getElementById("result").innerHTML = `BMI Anda: ${bmi.toFixed(2)} - ${category}`;
+    }
+  </script>
+</html>
